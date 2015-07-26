@@ -10,8 +10,6 @@ import React
 import qualified React.DOM as D
 import qualified React.DOM.Props as P
 
-foreign import interval :: forall eff a. Int -> Eff eff a -> Eff eff Unit
-
 hello = mkUI $ spec unit \ctx -> do
   props <- getProps ctx
   return $ D.h1 [ P.className "Hello"
@@ -21,14 +19,8 @@ hello = mkUI $ spec unit \ctx -> do
                 , D.text props.name
                 ]
 
-counter = mkUI counterSpec
+counter = mkUI (spec 0 render)
   where
-  counterSpec = (spec 0 render)
-    { componentDidMount = \ctx ->
-        interval 1000 $ do
-          val <- readState ctx
-          print val
-    }
   render ctx = do
     val <- readState ctx
     return $ D.button [ P.className "Counter"
