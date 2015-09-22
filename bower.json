@@ -1,24 +1,27 @@
 {
-  "name": "el-reacto",
-  "version": "0.1.0",
-  "keywords": [
-    "purescript",
-    "react"
-  ],
-  "license": "MIT",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ],
-  "dependencies": {
-    "react": "~0.12.2"
-  },
-  "devDependencies": {
-    "purescript-console": "^0.1.0",
-    "purescript-dom": "^0.1.2",
-    "purescript-react": "^0.1.0"
-  }
+    "name": "el-reacto",
+    "version": "0.1.0",
+    "keywords": [
+      "purescript",
+      "react"
+    ],
+    "license": "MIT",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests",
+        "bower.json",
+        "package.json"
+    ],
+    "dependencies": {
+        "react": "~0.13.3"
+    },
+    "devDependencies": {
+        "purescript-console": "latest",
+        "purescript-dom": "latest",
+        "purescript-affjax": "latest",
+        "purescript-thermite": "latest"
+    }
 }

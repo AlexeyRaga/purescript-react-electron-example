@@ -1,44 +1,44 @@
-var gulp = require('gulp');
-var purescript = require('gulp-purescript');
-var run = require("gulp-run");
-var del = require('del');
+'use strict'
 
-//var destFolder = 'dist/';
+var gulp        = require('gulp');
+var purescript  = require('gulp-purescript');
+var browserify  = require('browserify');
+var source      = require('vinyl-source-stream');
+var del         = require('del');
 
-var sources = [
-  "src/**/*.purs",
-  "bower_components/purescript-*/src/**/*.purs",
-];
+var sources =
+  [ 'src/**/*.purs'
+  , 'bower_components/purescript-*/src/**/*.purs'
+  ];
 
-var foreigns = [
-  "src/**/*.js",
-  "bower_components/purescript-*/src/**/*.js"
-];
+var foreigns =
+  [ 'src/**/*.js'
+  , 'bower_components/purescript-*/src/**/*.js'
+  ];
 
-gulp.task("make", function () {
-  return purescript.psc({ src: sources, ffi: foreigns, noOpt: false });
+gulp.task('make', function() {
+  return purescript.psc({ src: sources, ffi: foreigns });
 });
 
-gulp.task("bundle", ["make"], function () {
-  return purescript.pscBundle({ src: "output/**/*.js", output: "dist/bundle.js" });
+gulp.task('bundle', ['make'], function() {
+  return purescript.pscBundle({src: "output/**/*.js", module: "Main", main: "Main", output: "app.js"})
 });
 
-gulp.task("dotpsci", function () {
-  return purescript.psci({ src: sources, ffi: foreigns })
-    .pipe(gulp.dest("."));
+gulp.task("clean-output", function () {
+  return del([
+    "dist",
+    "output",
+    ".psci_modules",
+    ".psci"
+  ]);
 });
 
-gulp.task("test", ["make"], function() {
-  return purescript.pscBundle({ src: "output/**/*.js", main: "Test.Main" })
-    .pipe(run("node"));
+gulp.task("clean-bundle", function() {
+  return del([
+    "app.js*"
+  ])
 });
 
-gulp.task('clean', function (cb) {
-  return del(["dist/"], cb);
-});
+gulp.task("clean", ["clean-output", "clean-bundle"]);
 
-gulp.task('cleanall', function (cb) {
-  return del(["dist/", "output/"], cb);
-});
-
-gulp.task("default", ["bundle", "dotpsci"]);
+gulp.task('default', ['make', 'bundle']);

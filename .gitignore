@@ -3,3 +3,8 @@ dist/
 output/
 bower_components/
 node_modules/
+.psci_modules/
+.psci
+.browserify-cache.json
+app.js
+app.js.map
