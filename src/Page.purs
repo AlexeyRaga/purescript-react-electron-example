@@ -13,16 +13,22 @@ import Stock
 
 type PageState = { currentStock :: Stock }
 emptyPageState = { currentStock: head sp500 }
+
+updateSymbol :: Stock -> PageState -> PageState
 updateSymbol stock state = state { currentStock = stock }
+
+--sss :: forall props eff. ReactThis props PageState -> (PageState -> PageState) -> Eff (state :: ReactState ReadWrite PageState | eff) PageState
+sss ctx sel = transformState ctx (updateSymbol sel)
 
 {- Stock Options Container -}
 stockOptionsContainer = createClass $ spec emptyPageState \ctx -> do
   state <- readState ctx
-  return $ D.div [ P.className "stockPageContainer" ]
+  return $ D.div [ P._id "layout", P.className "content pure-g" ]
                  [ createFactory stockListBox {selectStock: onStockSelected ctx}
                  , createFactory stockInfo state.currentStock
                  ]
   where
+--    onStockSelected :: forall props state eff. ReactThis props state -> (state -> state) -> Eff (state :: ReactState ReadWrite state | eff) state
     onStockSelected ctx sel = transformState ctx (updateSymbol sel)
 
 {- Stock Info panel -}
@@ -36,18 +42,19 @@ stockInfo = createClass $ spec unit \ctx -> do
 {- Stock list box -}
 stockListBox = createClass $ spec unit \ctx -> do
   props <- getProps ctx
-  return $ D.div [ P.className "stockListBox" ]
+  return $ D.div [ P._id "list", P.className "pure-u-1" ]
                  (mkItems props.selectStock sp500)
   where
-    mkProps f x = { stock: x, onSelect: f }
+    mkProps f x = { stock: x, selectStock: f }
     mkItems f xs = (createFactory stockListItem) <$> mkProps f <$> xs
 
 {- Stock list item -}
 stockListItem = createClass $ spec unit \ctx -> do
   props <- getProps ctx
-  state <- readState ctx
-  return $ D.div [ P.className "stockListItem", P.onClick \_ -> props.onSelect props.stock ]
-                 [ D.span [P.className "itemStockSymbol"] [D.text props.stock.symbol]
-                 , D.span [P.className "itemStockName"]   [D.text props.stock.name]
-                 , D.span [P.className "itemStockSector"] [D.text props.stock.sector]
+  return $ D.div [ P.className "stock-item pure-g", P.onClick \_ -> props.selectStock props.stock ]
+                 [ D.span [ P.className "pure-u stock-symbol"] [D.text props.stock.symbol ]
+                 , D.div  [ P.className "pure-u-3-4" ]
+                          [ D.h5 [ P.className "stock-name" ] [ D.text props.stock.name ]
+                          , D.p [ P.className "stock-sector" ][ D.text props.stock.sector ]
+                          ]
                  ]

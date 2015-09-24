@@ -1,0 +1,147 @@
+body {
+    color: #333;
+}
+
+a {
+    text-decoration: none;
+    color: #1b98f8;
+}
+
+.primary-button,
+.secondary-button {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    border-radius: 20px;
+}
+.primary-button {
+    color: #fff;
+    background: #1b98f8;
+    margin: 1em 0;
+}
+.secondary-button {
+    background: #fff;
+    border: 1px solid #ddd;
+    color: #666;
+    padding: 0.5em 2em;
+    font-size: 80%;
+}
+
+#layout, #list, #main {
+    margin: 0;
+    padding: 0;
+}
+
+.stock-count {
+    color: rgb(75, 113, 151);
+}
+
+.stock-label-personal,
+.stock-label-work,
+.stock-label-travel {
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+    margin-right: 0.5em;
+    border-radius: 3px;
+}
+.stock-label-personal {
+    background: #ffc94c;
+}
+.stock-label-work {
+    background: #41ccb4;
+}
+.stock-label-travel {
+    background: #40c365;
+}
+
+.stock-item {
+    padding: 0.9em 1em;
+    border-bottom: 1px solid #ddd;
+    border-left: 6px solid transparent;
+}
+    .stock-avatar {
+        border-radius: 3px;
+        margin-right: 0.5em;
+    }
+    .stock-name,
+    .stock-subject {
+        margin: 0;
+    }
+    .stock-name {
+        text-transform: uppercase;
+        color: #999;
+    }
+    .stock-symbol {
+      width: 48px;
+      margin: 0;
+    }
+    .stock-sector {
+        font-size: 80%;
+        margin: 0;
+    }
+
+.stock-item-selected {
+    background: #eee;
+}
+.stock-item-unread {
+    border-left: 6px solid #1b98f8;
+}
+
+.stock-content-header, .stock-content-body, .stock-content-footer {
+    padding: 1em 2em;
+}
+    .stock-content-header {
+        border-bottom: 1px solid #ddd;
+    }
+
+        .stock-content-title {
+            margin: 0.5em 0 0;
+        }
+        .stock-content-subtitle {
+            font-size: 1em;
+            margin: 0;
+            font-weight: normal;
+        }
+            .stock-content-subtitle span {
+                color: #999;
+            }
+    .stock-content-controls {
+        margin-top: 2em;
+        text-align: right;
+    }
+        .stock-content-controls .secondary-button {
+            margin-bottom: 0.3em;
+        }
+
+    .stock-avatar {
+        width: 40px;
+        height: 40px;
+    }
+
+#layout {
+    padding-left:250px; /* "left col (nav + list)" width */
+    position: relative;
+}
+
+#list {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    overflow: auto;
+}
+
+#list {
+    margin-left: -250px;
+    width:250px;
+    height: 100%;
+    border-bottom: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+}
+
+#main {
+    position: static;
+    left: 150px;
+    margin: 0;
+    padding: 0;
+}
