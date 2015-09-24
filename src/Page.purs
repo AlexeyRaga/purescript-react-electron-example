@@ -1,14 +1,11 @@
 module Page where
 
 import Prelude
-
 import Control.Monad.Eff
 import React
-
 import qualified React.DOM as D
 import qualified React.DOM.Props as P
 import Data.Array.Unsafe
-
 import Stock
 
 type PageState = { currentStock :: Stock }
@@ -16,9 +13,6 @@ emptyPageState = { currentStock: head sp500 }
 
 updateSymbol :: Stock -> PageState -> PageState
 updateSymbol stock state = state { currentStock = stock }
-
---sss :: forall props eff. ReactThis props PageState -> (PageState -> PageState) -> Eff (state :: ReactState ReadWrite PageState | eff) PageState
-sss ctx sel = transformState ctx (updateSymbol sel)
 
 {- Stock Options Container -}
 stockOptionsContainer = createClass $ spec emptyPageState \ctx -> do
