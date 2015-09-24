@@ -15,26 +15,19 @@ updateSymbol :: Stock -> PageState -> PageState
 updateSymbol stock state = state { currentStock = stock }
 
 {- Stock Options Container -}
-stockOptionsContainer = createClass $ spec emptyPageState \ctx -> do
-  state <- readState ctx
-  return $ D.div [ P._id "layout", P.className "content pure-g" ]
-                 [ createFactory stockListBox {selectStock: onStockSelected ctx}
-                 , D.div [ P._id "main", P.className "pure-u-1" ]
-                         [ createFactory stockHeader state.currentStock
-                         , createFactory stockInfo state.currentStock
-                         ]
-                 ]
-  where
---    onStockSelected :: forall props state eff. ReactThis props state -> (state -> state) -> Eff (state :: ReactState ReadWrite state | eff) state
-    onStockSelected ctx sel = transformState ctx (updateSymbol sel)
+stockOptionsContainer =
+  let onStockSelected ctx sel = transformState ctx (updateSymbol sel)
+  in createClass $ spec emptyPageState \ctx -> do
+     state <- readState ctx
+     return $ D.div [ P._id "layout", P.className "content pure-g" ]
+                    [ createFactory stockListBox {selectStock: onStockSelected ctx}
+                    , D.div [ P._id "main", P.className "pure-u-1" ]
+                            [ createFactory stockHeader state.currentStock
+                            , createFactory stockInfo state.currentStock
+                            ]
+                    ]
 
-{- Stock Info panel -}
-stockInfo = createClass $ spec unit \ctx -> do
-  props <- getProps ctx
-  return $ D.div [ P.className "stock-content-body" ]
-                 [ createFactory stockGraph props
-                 ]
-
+{- Stock header in the main panel -}
 stockHeader = createClass $ spec unit \ctx -> do
   props <- getProps ctx
   return $ D.div [ P.className "stock-content-header pure-g"]
@@ -44,18 +37,28 @@ stockHeader = createClass $ spec unit \ctx -> do
                          ]
                  ]
 
+{- Stock Info panel -}
+stockInfo = createClass $ spec unit \ctx -> do
+  props <- getProps ctx
+  return $ D.div [ P.className "stock-content-body" ]
+                 [ createFactory stockGraph props
+                 ]
+
+{- Stock graph -}
 stockGraph = createClass $ spec unit \ctx -> do
   props <- getProps ctx
   return $ D.img [P.src ("https://chart.finance.yahoo.com/z?&t=6m&q=l&l=on&z=l&a=v&p=m50,m200&s=" ++ props.symbol)] []
 
 {- Stock list box -}
-stockListBox = createClass $ spec unit \ctx -> do
-  props <- getProps ctx
-  return $ D.div [ P._id "list", P.className "pure-u-1" ]
-                 (mkItems props.selectStock sp500)
-  where
-    mkProps f x = { stock: x, selectStock: f }
-    mkItems f xs = (createFactory stockListItem) <$> mkProps f <$> xs
+stockListBox =
+  let mkProps f x = { stock: x, selectStock: f }
+      mkItems f xs = (createFactory stockListItem) <$> mkProps f <$> xs
+  in createClass $ spec unit \ctx -> do
+     props <- getProps ctx
+     return $ D.div [ P._id "list", P.className "pure-u-1" ]
+                    (mkItems props.selectStock sp500)
+
+
 
 {- Stock list item -}
 stockListItem = createClass $ spec unit \ctx -> do
