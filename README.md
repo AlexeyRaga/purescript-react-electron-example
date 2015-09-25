@@ -3,8 +3,7 @@ Example $ PureScript + React + Electron
 
 ### Getting ready
 
-If you haven't done it already, install `purescript`, `gulp` and `pulp`.
-`purescript` is a compiler, `pulp` is a build tool
+If you haven't done it already, install `purescript` (a compiler) and `pulp` (a build tool):
 
     $ npm install -g purescript pulp
 
@@ -25,7 +24,7 @@ and then navigate to http://localhost:1337
 
 ### Running in Electron
 
-First install [Electron](http://electron.atom.io/)
+First install [Electron](http://electron.atom.io/):
 
     $ npm install electron-prebuilt -g
 

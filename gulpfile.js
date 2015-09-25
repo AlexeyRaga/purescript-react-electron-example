@@ -2,7 +2,6 @@
 
 var gulp        = require('gulp');
 var purescript  = require('gulp-purescript');
-var browserify  = require('browserify');
 var source      = require('vinyl-source-stream');
 var del         = require('del');
 
