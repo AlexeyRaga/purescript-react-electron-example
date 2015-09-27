@@ -9,15 +9,13 @@ import Data.Array.Unsafe
 import Stock
 
 type PageState = { currentStock :: Stock }
-emptyPageState = { currentStock: head sp500 }
+initState = { currentStock: head sp500 }
 
-updateSymbol :: Stock -> PageState -> PageState
-updateSymbol stock state = state { currentStock = stock }
-
-{- Stock Options Container -}
-stockOptionsContainer =
-  let onStockSelected ctx sel = transformState ctx (updateSymbol sel)
-  in createClass $ spec emptyPageState \ctx -> do
+{- Stock Page -}
+stockPage =
+  let updateCurrent stock state = state { currentStock = stock }
+      onStockSelected ctx state = transformState ctx (updateCurrent state)
+  in createClass $ spec initState \ctx -> do
      state <- readState ctx
      return $ D.div [ P._id "layout", P.className "content pure-g" ]
                     [ createFactory stockListBox {selectStock: onStockSelected ctx}
@@ -57,8 +55,6 @@ stockListBox =
      props <- getProps ctx
      return $ D.div [ P._id "list", P.className "pure-u-1" ]
                     (mkItems props.selectStock sp500)
-
-
 
 {- Stock list item -}
 stockListItem = createClass $ spec unit \ctx -> do

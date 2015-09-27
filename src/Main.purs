@@ -29,7 +29,7 @@ import Page
 main = container >>= render ui
   where
     ui :: ReactElement
-    ui = D.div [] [ createFactory stockOptionsContainer {} ]
+    ui = D.div [] [ createFactory stockPage {} ]
 
     container :: forall eff. Eff (dom :: DOM | eff) Element
     container = do
