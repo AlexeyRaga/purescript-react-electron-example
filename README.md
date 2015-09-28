@@ -1,6 +1,8 @@
 Example $ PureScript + React + Electron
 =======================================
 
+![Screenshot](http://alexey.raga.name/assets/PS-React-Example.png)
+
 ### Getting ready
 
 If you haven't done it already, install `purescript` (a compiler) and `pulp` (a build tool):
