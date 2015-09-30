@@ -70,15 +70,17 @@ a {
     }
     .stock-name {
         text-transform: uppercase;
-        color: #999;
+        color: #7D7C7C;
     }
     .stock-symbol {
       width: 48px;
       margin: 0;
+      color: #D8D8D8;
     }
     .stock-sector {
         font-size: 80%;
         margin: 0;
+        color: #5D5C5C;
     }
 
 .stock-item-selected {
@@ -137,6 +139,7 @@ a {
     height: 100%;
     border-bottom: 1px solid #ddd;
     border-right: 1px solid #ddd;
+    background-color: #333333;
 }
 
 #main {
