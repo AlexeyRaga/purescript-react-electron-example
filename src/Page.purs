@@ -14,7 +14,7 @@ initState = { currentStock: head sp500 }
 {- Stock Page -}
 stockPage =
   let updateCurrent stock state = state { currentStock = stock }
-      onStockSelected ctx state = transformState ctx (updateCurrent state)
+      onStockSelected ctx stock = transformState ctx (updateCurrent stock)
   in createClass $ spec initState \ctx -> do
      state <- readState ctx
      return $ D.div [ P._id "layout", P.className "content pure-g" ]
